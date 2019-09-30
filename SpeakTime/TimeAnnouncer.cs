@@ -16,15 +16,15 @@ public class TimeAnnouncer {
     /// </summary>
     private int? lastSpokenTime = null;   
     private int? lastSpokenMinute = null;
-    private const int MIN_SEC_BETWEEN_ANNOUNCEMENTS = 1;
+    private const int MINIMUM_SEC_BETWEEN_ANNOUNCEMENTS = 1;
 
     public TimeAnnouncer(double secBetweenAnnouncements = 5.0) {
         tts = new Tts();
         tts.gender = VoiceGender.Female;
         speechGap = secBetweenAnnouncements;
-        if (speechGap < MIN_SEC_BETWEEN_ANNOUNCEMENTS) {
-            Debug.Write($"Seconds between announcements must be >= {MIN_SEC_BETWEEN_ANNOUNCEMENTS}.");
-            speechGap = MIN_SEC_BETWEEN_ANNOUNCEMENTS;
+        if (speechGap < MINIMUM_SEC_BETWEEN_ANNOUNCEMENTS) {
+            Debug.Write($"Seconds between announcements must be >= {MINIMUM_SEC_BETWEEN_ANNOUNCEMENTS}.");
+            speechGap = MINIMUM_SEC_BETWEEN_ANNOUNCEMENTS;
         }
     }
 
@@ -36,10 +36,11 @@ public class TimeAnnouncer {
     /// </summary>
     /// <param name="currentSec"> The current time. Time can be increasing or decreasing.</param>
     public void AnnounceIfTime(int currentSec) {
+        // If haven't spoken the time yet or if it's time for the next announcement...
         if ((lastSpokenTime.HasValue == false) || ((Math.Abs(currentSec - lastSpokenTime.Value) / speechGap) >= 1.0)) {
             lastSpokenTime = currentSec;
+            // Format the #seconds into the text for the words that will be spoken.
             string announcement = FormatMinSec(currentSec);
-            Debug.Write($"\nSpeaking {announcement}.");
             tts.Speak(announcement);
         }
     }

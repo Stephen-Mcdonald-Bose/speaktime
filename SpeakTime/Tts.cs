@@ -1,5 +1,4 @@
-﻿//using System;
-using System.Speech.Synthesis;
+﻿using System.Speech.Synthesis;
 using System.Diagnostics;
 
 /// <summary>
@@ -9,6 +8,9 @@ using System.Diagnostics;
 /// </summary>
 public class Tts
 {
+    /// <summary>
+    /// The gender that will be use for the voice 
+    /// </summary>
     public VoiceGender gender { get; set; } = VoiceGender.Male;
 
     /// <summary>

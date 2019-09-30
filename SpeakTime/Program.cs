@@ -31,16 +31,17 @@ class Program {
         // Stopwatch gives the elapsed time.
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
+        // Keep track of whether the user has typed a space bar - to quit the program.
         bool spaceTyped = false;
-        ConsoleKeyInfo cki;
+        ConsoleKeyInfo keyInfo;
         while (spaceTyped == false) {
             // Get the elapsed time.
             TimeSpan ts = stopwatch.Elapsed;
             announcer.AnnounceIfTime((int)ts.TotalSeconds);
             Thread.Sleep(SLEEP_MSEC);
             while (Console.KeyAvailable) {
-                cki = Console.ReadKey();
-                if (cki.Key == ConsoleKey.Spacebar) {
+                keyInfo = Console.ReadKey();
+                if (keyInfo.Key == ConsoleKey.Spacebar) {
                     spaceTyped = true;
                 }
             }
